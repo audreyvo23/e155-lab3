@@ -1,7 +1,11 @@
+// Audrey Vo
+// avo@hmc.edu
+// 9/12/2024
+// This code controls the the clock speed of the system.
 module oscillator (input logic clk,
 	input logic [3:0] s,
 	output logic [2:0] led);
-logic pulse;
+	logic pulse;
 	logic led_state = 1;
 	logic [24:0] counter = 0;
 	
