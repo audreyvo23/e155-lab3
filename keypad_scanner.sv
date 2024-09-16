@@ -4,7 +4,8 @@
 // This code controls the the scanning for the keypad to determine which columns and rows are turned on.
 module keypad_scanner (input logic clk, reset, C0, C1, C2, C3,
 		output logic [7:0] keypad_val,
-		output logic button_on
+		output logic button_on,
+		output logic en
 		);
 	
 	//keypad_val = {R0, R1, R2, R3, C0, C1, C2, C3};
@@ -67,6 +68,8 @@ module keypad_scanner (input logic clk, reset, C0, C1, C2, C3,
 	assign R1 = (state == S4) | (state == S1) | (state == S5);
 	assign R2 = (state == S6) | (state == S2) | (state == S7);
 	assign R3 = (state == S9) | (state == S8) | (state == S3);
+
+	assign en = (state == S6) | (state == S8) | (state == S10) | (state == S4);
 
 	assign keypad_val = {R0, R1, R2, R3, C0, C1, C2, C3}; 
 

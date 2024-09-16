@@ -9,10 +9,11 @@ module two_digit_mem_tb ();
 logic clk, reset;
 logic [3:0] s;
 logic [3:0] s1, s2;
+logic pulse;
 
 
  // Instantiate the device under test
- two_digit_mem dut(.clk(clk), .reset(reset), .s(s), .s1(s1), .s2(s2));
+ two_digit_mem dut(.clk(clk), .reset(reset), .s(s), .pulse(pulse), .s1(s1), .s2(s2));
 
  // Generate clock signal with a period of 10 timesteps.
  always
@@ -33,18 +34,22 @@ logic [3:0] s1, s2;
 	reset = 0;
 
 	s = 4'b0001;
+	pulse = 1;
 
 	#10;
 
 	s = 4'b0010;
+	pulse = 0;
 
 	#10;
 
 	s = 4'b0011;
+	pulse = 0;
     
     #10;
     
     s = 4'b0100;
+	pulse = 1;
 
 	#10;
 

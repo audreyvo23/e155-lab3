@@ -16,6 +16,7 @@ module lab3 (input logic clk, reset,
 	logic selector1, selector2;
 	logic pulse;
 	logic [3:0] mux_s;
+	logic en;
 
 	// Internal high-speed oscillator
 	//HSOSC hf_osc (.CLKHFPU(1'b1), .CLKHFEN(1'b1), .CLKHF(int_osc));
@@ -24,19 +25,19 @@ module lab3 (input logic clk, reset,
 	synchronizer s3 (clk, reset, async_C0, async_C1, async_C2, async_C3, C0, C1, C2, C3);
 	
 	// FSM that scans the keypad
-	keypad_scanner s0 (clk, reset, C0, C1, C2, C3, keypad_val, button_on);
+	keypad_scanner s0 (clk, reset, C0, C1, C2, C3, keypad_val, button_on, en);
 
 	// outputs a pulse to enable the shifter
-	pulse s12 (clk, reset, button_on, pulse);
+	//pulse s12 (clk, reset, button_on, pulse);
 	
 	// takes care of debouncing when button is clicked
-	debounce s5 (clk, keypad_val, button_on, no_bounce_keypad);
+	//debounce s5 (clk, keypad_val, button_on, no_bounce_keypad);
 
 	// decodes the switch value from the rows and columns turned on
-	keypad_decoder s6 (no_bounce_keypad, s);
+	keypad_decoder s6 (keypad_val, s);
 
 	// stores the memory of the digits
-	two_digit_mem s4 (clk, reset, s, s1, s2);
+	two_digit_mem s4 (clk, reset, s, en, s1, s2);
 
 	// internal oscillator that outputs 2 selectors
 	selector_checker s7 (clk, selector1, selector2);

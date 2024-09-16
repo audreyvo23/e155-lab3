@@ -8,13 +8,13 @@
 module top_tb();
 logic clk, reset;
 logic async_C0, async_C1, async_C2, async_C3;
-logic [7:0] sevenSeg;
-logic [7:0] expected_sevenSeg;
+logic [6:0] sevenSeg;
+logic [6:0] expected_sevenSeg;
 
 
 
  // Instantiate the device under test
- lab3 dut(.reset(reset), .async_C0(async_C0), .async_C1(async_C1), .async_C2(async_C2), .async_C3(async_C3), .sevenSeg(sevenSeg));
+ lab3 dut(.clk(clk), .reset(reset), .async_C0(async_C0), .async_C1(async_C1), .async_C2(async_C2), .async_C3(async_C3), .sevenSeg(sevenSeg));
 
  // Generate clock signal with a period of 10 timesteps.
  always
@@ -39,29 +39,59 @@ logic [7:0] expected_sevenSeg;
     async_C2 = 0;
     async_C3 = 0;
 
-    expected_sevenSeg = 7'b1000000;
+    expected_sevenSeg = 7'b0000000;
 
-	#20;
+	#100;
 
 	async_C0 = 1;
     async_C1 = 0;
     async_C2 = 0;
     async_C3 = 0;
     
-    // will output A
-    expected_sevenSeg = 7'b0001000;
+    // will output 5
+    expected_sevenSeg = 7'b0000000;
 
-	#20;
+	#50;
 
-	async_C0 = 0;
+async_C0 = 0;
+    async_C1 = 0;
+    async_C2 = 0;
+    async_C3 = 0;
+
+    expected_sevenSeg = 7'b0000000;
+
+#100;
+
+    async_C0 = 0;
     async_C1 = 1;
     async_C2 = 0;
     async_C3 = 0;
 
-    // will output 8
+    // will output 5
+    expected_sevenSeg = 7'b0010010;
+
+#800;
+
+async_C0 = 0;
+    async_C1 = 0;
+    async_C2 = 0;
+    async_C3 = 0;
+
     expected_sevenSeg = 7'b0000000;
 
+#100;
 
+    async_C0 = 0;
+    async_C1 = 0;
+    async_C2 = 0;
+    async_C3 = 1;
+
+    // will output d
+    expected_sevenSeg = 7'b0100001;
+
+    
+
+#1000;
 	
 
    end

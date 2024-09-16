@@ -5,7 +5,6 @@
 module oscillator (input logic clk,
 	input logic [3:0] s,
 	output logic [2:0] led);
-	logic pulse;
 	logic led_state = 1;
 	logic [24:0] counter = 0;
 	
