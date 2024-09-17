@@ -15,11 +15,11 @@
 		if(button_on) begin
 				if(counter > 50) begin 
 				counter <= counter;
-				assign no_bounce_keypad = keypad_val;
+				//assign no_bounce_keypad = keypad_val;
 			end
 			else begin 
 				counter <= counter + 1;
-				assign no_bounce_keypad = 8'b00000000;
+				//assign no_bounce_keypad = 8'b00000000;
 			end
 		end 
 		else counter <= 0;

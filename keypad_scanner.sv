@@ -5,14 +5,14 @@
 module keypad_scanner (input logic clk, reset, C0, C1, C2, C3,
 		output logic [7:0] keypad_val,
 		output logic button_on,
-		output logic en
+		output logic en,
+		output logic R0, R1, R2, R3
 		);
 	
 	//keypad_val = {R0, R1, R2, R3, C0, C1, C2, C3};
 	
 	//logic [3:0] state, nextstate;
 	assign button_on = C0 | C1 | C2 | C3;
-	logic R0, R1, R2, R3;
 	
 	// define various FSM states
 	// typedef enum logic [3:0] {S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11} statetype;
@@ -64,12 +64,12 @@ module keypad_scanner (input logic clk, reset, C0, C1, C2, C3,
 		endcase
 
 	// output logic
-	assign R0 = (state == S0) | (state == S10) | (state == S11);
-	assign R1 = (state == S4) | (state == S1) | (state == S5);
-	assign R2 = (state == S6) | (state == S2) | (state == S7);
-	assign R3 = (state == S9) | (state == S8) | (state == S3);
-
-	assign en = (state == S6) | (state == S8) | (state == S10) | (state == S4);
+	assign R0 = (state == S0) || (state == S10) || (state == S11);
+	assign R1 = (state == S4) || (state == S1) || (state == S5);
+	assign R2 = (state == S6) || (state == S2) || (state == S7);
+	assign R3 = (state == S9) || (state == S8) || (state == S3);
+	
+	assign en = (state == S6) || (state == S8) || (state == S10) || (state == S4);
 
 	assign keypad_val = {R0, R1, R2, R3, C0, C1, C2, C3}; 
 

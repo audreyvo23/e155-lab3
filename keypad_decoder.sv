@@ -28,7 +28,7 @@ module keypad_decoder (
 			8'b00100001: 	s = 4'hd;
 			8'b01000001:	s = 4'he;
 			8'b10000001: 	s = 4'hf;
-			default s = 4'h0;
+			default s = 4'hf;
 		endcase
 	end
 	
